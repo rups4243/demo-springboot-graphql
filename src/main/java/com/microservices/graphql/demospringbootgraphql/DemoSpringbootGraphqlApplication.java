@@ -10,6 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 
+import com.microservices.graphql.demospringbootgraphql.service.AuthorService;
 import com.microservices.graphql.demospringbootgraphql.service.BookService;
 
 import graphql.GraphQL;
@@ -27,6 +28,9 @@ public class DemoSpringbootGraphqlApplication {
 
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private AuthorService authorService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoSpringbootGraphqlApplication.class, args);
@@ -51,7 +55,10 @@ public class DemoSpringbootGraphqlApplication {
 		// new BookService().getBook();
 		RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
 				.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getBook", bookService.getBook()))
-				.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getBooks", bookService.getBooks())).build();
+				.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getBooks", bookService.getBooks()))
+				.type(TypeRuntimeWiring.newTypeWiring("Mutation").dataFetcher("createBook", bookService.createBook()))
+				.type(TypeRuntimeWiring.newTypeWiring("Book").dataFetcher("author", authorService.getAuthor()))
+				.build();
 
 		SchemaGenerator generator = new SchemaGenerator();
 		GraphQLSchema graphQLSchema = generator.makeExecutableSchema(definitionRegistry, runtimeWiring);

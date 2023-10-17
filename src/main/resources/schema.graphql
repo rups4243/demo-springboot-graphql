@@ -1,10 +1,21 @@
 type Query{
-	getBook(id:Int):Book
+	getBook(id:String):Book
 	getBooks:[Book]
 }
 
+type Mutation{
+    createBook(bookName:String, pages:Int, authorName:String, age:Int):String
+}
+
 type Book{
-   id:Int
+   id:String
    name:String
-   pages:Int  
+   pages:Int
+   author:Author
+}
+
+type Author{
+   id:String,
+   name:String,
+   age:Int
 }

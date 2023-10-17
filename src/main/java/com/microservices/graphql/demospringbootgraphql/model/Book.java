@@ -1,5 +1,7 @@
 package com.microservices.graphql.demospringbootgraphql.model;
 
+import java.util.UUID;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -7,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Book {
 
 	@Id
-	private int id;
+	private UUID id;
 	private String name;
 	private int pages;
 	
@@ -27,16 +29,23 @@ public class Book {
 	}
 	
 	
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public Book(String name, int pages) {
+		super();
+		this.name = name;
+		this.pages = pages;
+	}
+	
+	
 	
 	
 }
