@@ -2,7 +2,8 @@
 # FROM openjdk:8-jdk-alpine
 
 # For Java 11, try this
-FROM openjdk:17-jdk-slim
+#FROM openjdk:17-jdk-slim
+FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 # Refer to Maven build -> finalName
 #ARG JAR_FILE=target/spring-boot-web.jar
